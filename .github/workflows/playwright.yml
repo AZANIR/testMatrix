@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [ main, master ]
 jobs:
-  test:
+  stage:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -22,11 +22,11 @@ jobs:
     - uses: actions/upload-artifact@v3
       if: always()
       with:
-        name: playwright-report1
+        name: playwright-report-stage
         path: playwright-report/
         retention-days: 30
 
-  test2:
+  product:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -43,6 +43,37 @@ jobs:
     - uses: actions/upload-artifact@v3
       if: always()
       with:
-        name: playwright-report2
+        name: playwright-report-product
         path: playwright-report/
         retention-days: 30
+
+  download_and_deploy:
+    needs: [stage, product] # Укажите здесь все предыдущие задачи
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Download Artifact Stage
+      uses: actions/download-artifact@v4
+      with:
+        name: playwright-report-stage
+        path: stage/
+
+    - name: Download Artifact Product
+      uses: actions/download-artifact@v4
+      with:
+        name: playwright-report-product
+        path: product/
+
+    # # Шаг для распаковки артефакта
+    # - name: Unpack Artifact
+    #   run: |
+    #     unzip путь_для_сохранения/ваше_имя_артефакта.zip -d путь_распаковки
+
+    # Шаг для деплоя на GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
