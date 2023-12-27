@@ -69,6 +69,29 @@ jobs:
         name: playwright-report-product
         path: reports/product
 
+    - name: Generate Index HTML
+      run: |
+        # Создаем начало index.html файла
+        echo '<!DOCTYPE html>' > index.html
+        echo '<html lang="en">' >> index.html
+        echo '<head>' >> index.html
+        echo '    <meta charset="UTF-8">' >> index.html
+        echo '    <title>Index of folders</title>' >> index.html
+        echo '</head>' >> index.html
+        echo '<body>' >> index.html
+        echo '    <h1>Index of folders</h1>' >> index.html
+        echo '    <ul>' >> index.html
+
+        # Перебираем папки и добавляем их в index.html
+        for folder in $(ls -d */); do
+            echo "        <li><a href=\"./$folder\">$(basename $folder)</a></li>" >> index.html
+        done
+
+        # Завершаем index.html файл
+        echo '    </ul>' >> index.html
+        echo '</body>' >> index.html
+        echo '</html>' >> index.html
+
     # Шаг для деплоя на GitHub Pages
     - name: Deploy to GitHub Pages
       uses: crazy-max/ghaction-github-pages@v4
