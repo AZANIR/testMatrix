@@ -52,19 +52,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Download Artifact Stage
       uses: actions/download-artifact@v4
       with:
         name: playwright-report-stage
-        path: stage/
+        path: reports/stage
 
     - name: Download Artifact Product
       uses: actions/download-artifact@v4
       with:
         name: playwright-report-product
-        path: product/
+        path: reports/product
 
     # # Шаг для распаковки артефакта
     # - name: Unpack Artifact
@@ -76,4 +76,5 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./reports
         publish_branch: gh-pages
