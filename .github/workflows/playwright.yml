@@ -51,11 +51,11 @@ jobs:
     needs: [stage, product] # Укажите здесь все предыдущие задачи
     runs-on: ubuntu-latest
     steps:
-    - name: Wait for Artifacts to be ready
-      run: sleep 20 # Подождите 10 секунд
-      
     - name: Checkout Repository
       uses: actions/checkout@v3
+
+    - name: Wait for Artifacts to be ready
+      run: sleep 60 # Подождите 10 секунд
 
     - name: Download Artifact Stage
       uses: actions/download-artifact@v4
