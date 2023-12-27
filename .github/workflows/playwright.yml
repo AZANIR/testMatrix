@@ -69,22 +69,25 @@ jobs:
         name: playwright-report-product
         path: reports/product
 
-    - name: Generate Index HTML
+    - name: Generate Index HTML for 'reports' directory
       run: |
+        # Переходим в директорию 'reports'
+        cd reports
+
         # Создаем начало index.html файла
         echo '<!DOCTYPE html>' > index.html
         echo '<html lang="en">' >> index.html
         echo '<head>' >> index.html
         echo '    <meta charset="UTF-8">' >> index.html
-        echo '    <title>Index of folders</title>' >> index.html
+        echo '    <title>Index of Reports</title>' >> index.html
         echo '</head>' >> index.html
         echo '<body>' >> index.html
-        echo '    <h1>Index of folders</h1>' >> index.html
+        echo '    <h1>Index of Reports</h1>' >> index.html
         echo '    <ul>' >> index.html
 
-        # Перебираем папки и добавляем их в index.html
+        # Перебираем папки внутри 'reports' и добавляем их в index.html
         for folder in $(ls -d */); do
-            echo "        <li><a href=\"./$folder\">$(basename $folder)</a></li>" >> index.html
+          echo "        <li><a href=\"$folder\">$(basename $folder)</a></li>" >> index.html
         done
 
         # Завершаем index.html файл
