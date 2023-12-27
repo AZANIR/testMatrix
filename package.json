@@ -1,0 +1,25 @@
+{
+  "name": "testmatrix",
+  "version": "1.0.0",
+  "description": "testMatrix",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AZANIR/testMatrix.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AZANIR/testMatrix/issues"
+  },
+  "homepage": "https://github.com/AZANIR/testMatrix#readme",
+  "dependencies": {
+    "playwright": "^1.40.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.1",
+    "@types/node": "^20.10.5"
+  }
+}
