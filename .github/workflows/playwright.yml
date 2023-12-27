@@ -51,6 +51,9 @@ jobs:
     needs: [stage, product] # Укажите здесь все предыдущие задачи
     runs-on: ubuntu-latest
     steps:
+    - name: Wait for Artifacts to be ready
+      run: sleep 20 # Подождите 10 секунд
+      
     - name: Checkout Repository
       uses: actions/checkout@v3
 
@@ -65,9 +68,6 @@ jobs:
       with:
         name: playwright-report-product
         path: reports/product
-
-    - name: Wait for Artifacts to be ready
-      run: sleep 20 # Подождите 10 секунд
 
     # Шаг для деплоя на GitHub Pages
     - name: Deploy to GitHub Pages
