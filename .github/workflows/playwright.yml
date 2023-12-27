@@ -66,10 +66,8 @@ jobs:
         name: playwright-report-product
         path: reports/product
 
-    # # Шаг для распаковки артефакта
-    # - name: Unpack Artifact
-    #   run: |
-    #     unzip путь_для_сохранения/ваше_имя_артефакта.zip -d путь_распаковки
+    - name: Wait for Artifacts to be ready
+      run: sleep 20 # Подождите 10 секунд
 
     # Шаг для деплоя на GitHub Pages
     - name: Deploy to GitHub Pages
