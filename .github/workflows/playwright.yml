@@ -69,29 +69,35 @@ jobs:
         name: playwright-report-product
         path: reports/product
 
-    - name: Generate Index HTML for 'reports' directory
+    - name: Generate Index HTML with Bootstrap for 'reports' directory
       run: |
         # Переходим в директорию 'reports'
         cd reports
 
-        # Создаем начало index.html файла
+        # Создаем начало index.html файла с подключением Bootstrap
         echo '<!DOCTYPE html>' > index.html
         echo '<html lang="en">' >> index.html
         echo '<head>' >> index.html
         echo '    <meta charset="UTF-8">' >> index.html
+        echo '    <meta name="viewport" content="width=device-width, initial-scale=1.0">' >> index.html
+        echo '    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">' >> index.html
         echo '    <title>Index of Reports</title>' >> index.html
         echo '</head>' >> index.html
         echo '<body>' >> index.html
-        echo '    <h1>Index of Reports</h1>' >> index.html
-        echo '    <ul>' >> index.html
+        echo '    <div class="container mt-5">' >> index.html
+        echo '        <h1 class="mb-4">Index of Reports</h1>' >> index.html
+        echo '        <div class="list-group">' >> index.html
 
-        # Перебираем папки внутри 'reports' и добавляем их в index.html
+        # Перебираем папки внутри 'reports' и добавляем их в виде кнопок
         for folder in $(ls -d */); do
-          echo "        <li><a href=\"$folder\">$(basename $folder)</a></li>" >> index.html
+          echo "            <a href=\"$folder\" class=\"list-group-item list-group-item-action\">$(basename $folder)</a>" >> index.html
         done
 
         # Завершаем index.html файл
-        echo '    </ul>' >> index.html
+        echo '        </div>' >> index.html
+        echo '    </div>' >> index.html
+        echo '    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>' >> index.html
+        echo '    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>' >> index.html
         echo '</body>' >> index.html
         echo '</html>' >> index.html
 
